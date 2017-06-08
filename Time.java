@@ -30,7 +30,7 @@ public class Time extends Applet implements Runnable
 	
 	public void paint(Graphics g)
 	{
-		Graphics2D g2 = (Graphics2D) g;
+		Graphics2D g2 = (Graphics2D) g; 
 		date=new Date();
 		setBackground(Color.BLACK);
 		g.setColor(Color.WHITE);
