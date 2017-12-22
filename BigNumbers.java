@@ -116,29 +116,24 @@ class BigMultiply
 
 		for(int i=0;i<length2;i++)
 		{
-			int carry[] = new int[length1+1];
-
-			for(int c=0;c<carry.length;c++)
-			{
-				carry[c] = 0;
-			}
+			int carry = 0;
 			
 			int temp;
 
 			for(int j=0;j<length1;j++)
 			{
-				temp = ( toInt(max, j) * toInt(min, i) ) + carry[j];
+				temp = ( toInt(max, j) * toInt(min, i) ) + carry;
 
 				if(temp > 10)
 				{
-					carry[j+1] = temp/10;
+					carry = temp/10;
 					temp = temp % 10;
 				}
 
 				muls[i] += temp;
 			}
 
-			muls[i] = getZeros(i) + muls[i] + carry[length1];
+			muls[i] = getZeros(i) + muls[i] + carry;
 		}
 
 		for(int i=0;i<muls.length;i++)
@@ -229,6 +224,44 @@ class BigMultiply
 		}
 
 		return (result);
+	}
+	
+	private static String sub(String n1, String n2)
+	{
+		int A = n1.length();
+		int B = n2.length();
+		int max = 0, diff = Math.abs(A-B);
+		String result = "";
+		if(A > B)
+		{
+			max = A;
+			n2 = getZeros(diff) + n2;
+		}
+
+		else
+		{
+			max = B;
+			n1 = getZeros(diff) + n1;
+		}
+
+		for(int i=max-1; i>=0; i--)
+		{
+			int d1 = toInt(n1, i);
+			int d2 = toInt(n2, i);
+			if(d1 >= d2)
+			{
+				result = (d1 - d2) + result;
+			}
+			
+			else
+			{
+				result = (d1 + 10 - d2) + result;
+			}
+		}
+
+		// p(n1);
+		// p(n2);
+		return result;
 	}
 
 	/**
