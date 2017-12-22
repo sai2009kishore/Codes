@@ -75,8 +75,7 @@ class BigMultiply
 				firstNum = firstNum + getZeros(diff);
 				max = dec2;
 			}
-			
-			
+
 			
 			if(firstNum.contains("."))
 			{
@@ -88,10 +87,6 @@ class BigMultiply
 				secondNum = removeDot(secondNum);
 			}
 
-			p(firstNum);
-			p(secondNum);
-			
-			
 			String result = add(firstNum, secondNum);
 			result = result.substring(0, result.length()-max) + "." + result.substring(result.length()-max);
 			return rev(trim(rev(trim(result))));
@@ -305,8 +300,6 @@ class BigMultiply
 			}
 		}
 
-		// p(n1);
-		// p(n2);
 		return result;
 	}
 
