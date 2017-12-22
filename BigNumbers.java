@@ -12,7 +12,7 @@ class BigMultiply
 	public static void main(String args[])
 	{
 		Scanner scanner = new Scanner(System.in);
-		p(add(scanner.next(), scanner.next()));
+		p(addPoint(scanner.next(), scanner.next()));
 	}
 
 	/**
@@ -30,33 +30,12 @@ class BigMultiply
 
 			if(firstNum.contains("."))
 			{
-				decimals += firstNum.length() - firstNum.indexOf(".") - 1;
-
-				for(int i=0;i<firstNum.length();i++)
-				{
-					if(firstNum.charAt(i) != '.')
-					{
-						temp += firstNum.charAt(i);
-					}
-				}
-				firstNum = temp;
+				firstNum = removeDot(firstNum);
 			}
-
-			temp = "";
 
 			if(secondNum.contains("."))
 			{
-				decimals += secondNum.length() - secondNum.indexOf(".") - 1;
-
-				for(int i=0;i<secondNum.length();i++)
-				{
-					if(secondNum.charAt(i) != '.')
-					{
-						temp += secondNum.charAt(i);
-					}
-				}
-
-				secondNum = temp;
+				secondNum = removeDot(secondNum);
 			}
 
 			String result = multiply(firstNum, secondNum);
@@ -68,6 +47,73 @@ class BigMultiply
 		{
 			return trim(multiply(firstNum, secondNum));
 		}
+	}
+	
+	/**
+	* Adds the two numbers digit by digit
+	* @param firstNum - The first number
+	* @param secondNum - the second number
+	* @return - Sum of the given numbers
+	*/
+	private static String addPoint(String firstNum, String secondNum)
+	{
+		if(firstNum.contains(".") || secondNum.matches("."))
+		{
+			int dec1 = firstNum.length() - firstNum.indexOf(".") - 1;
+			int dec2 = secondNum.length() - secondNum.indexOf(".") - 1;
+			int diff = Math.abs(dec1 - dec2);
+			int max = 0;
+			
+			if(dec1 > dec2)
+			{
+				secondNum = secondNum + getZeros(diff);
+				max = dec1;
+			}
+
+			else if(dec1 < dec2)
+			{
+				firstNum = firstNum + getZeros(diff);
+				max = dec2;
+			}
+			
+			
+			
+			if(firstNum.contains("."))
+			{
+				firstNum = removeDot(firstNum);
+			}
+
+			if(secondNum.contains("."))
+			{
+				secondNum = removeDot(secondNum);
+			}
+
+			p(firstNum);
+			p(secondNum);
+			
+			
+			String result = add(firstNum, secondNum);
+			result = result.substring(0, result.length()-max) + "." + result.substring(result.length()-max);
+			return rev(trim(rev(trim(result))));
+		}
+
+		else
+		{
+			return trim(add(firstNum, secondNum));
+		}
+	}
+	
+	private static String removeDot(String org)
+	{
+		String result = "";
+		for(int i=0;i<org.length();i++)
+		{
+			if(org.charAt(i) != '.')
+			{
+				result += org.charAt(i);
+			}
+		}
+		return result;
 	}
 
 	/**
